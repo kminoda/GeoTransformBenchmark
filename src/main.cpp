@@ -31,8 +31,15 @@ int main() {
     std::cout << "Inverse Stereographic transform: " << timeTaken << " s\n";
 
     // Oblique Stereographic
-    // Oblique Stereographic is not directly supported, you will need to define it manually
+    oTargetSRS.SetOS(geodetic.lat, geodetic.lon, 1.0, 0.0, 0.0);
+    timeTaken = benchmarkTransform(geodetic, cartesian, oSourceSRS, oTargetSRS);
+    std::cout << "Oblique Stereographic transform: " << timeTaken << " s\n";
 
+    // Inverse Oblique Stereographic transformation
+    // Reset geodeticInverse
+    geodeticInverse = {0.0, 0.0};
+    timeTaken = benchmarkInverseTransform(cartesian, geodeticInverse, oSourceSRS, oTargetSRS);
+    std::cout << "Inverse Oblique Stereographic transform: " << timeTaken << " s\n";
 
     // Inverse transformation (example with Transverse Mercator)
     // Reset geodeticInverse
